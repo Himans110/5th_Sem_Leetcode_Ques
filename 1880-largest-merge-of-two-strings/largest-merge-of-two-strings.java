@@ -4,11 +4,9 @@ class Solution {
         int i = 0, j = 0;
         while (i < word1.length() && j < word2.length()) {
             if (word1.substring(i).compareTo(word2.substring(j)) > 0) {
-                ans.append(word1.charAt(i));
-                i++;
+                ans.append(word1.charAt(i++));
             } else {
-                ans.append(word2.charAt(j));
-                j++;
+                ans.append(word2.charAt(j++));
             }
         }
         while (i < word1.length()) ans.append(word1.charAt(i++));
