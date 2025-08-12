@@ -15,23 +15,22 @@
  */
 class Solution {
     public int diameterOfBinaryTree(TreeNode root) {
-       return diameter(root);
-    }
-    public int diameter(TreeNode root){
-         if(root == null){
-            return 0;
+        return diameter(root).di;
         }
-        int ld = diameter(root.left);
-        int rd = diameter(root.right);
-        int sd = ht(root.left)+ht(root.right)+2;
-        return Math.max(sd,Math.max(ld,rd));
-    }
-    public int ht(TreeNode root){
-        if(root == null){
-            return -1;
+        public DiaPair diameter(TreeNode root){
+            if(root == null){
+                return new DiaPair();
+            }
+            DiaPair ldp = diameter(root.left);
+            DiaPair rdp = diameter(root.right);
+            DiaPair sdp = new DiaPair();
+            sdp.ht = Math.max(ldp.ht,rdp.ht)+1;
+            int sd = ldp.ht + rdp.ht + 2;
+            sdp.di = Math.max(sd,Math.max(ldp.di, rdp.di));
+            return sdp;
         }
-        int lh = ht(root.left);
-        int rh = ht(root.right);
-        return Math.max(lh,rh)+1;
-    }
+        class DiaPair{
+            int di = 0;
+            int ht = -1;
+        }
 }
