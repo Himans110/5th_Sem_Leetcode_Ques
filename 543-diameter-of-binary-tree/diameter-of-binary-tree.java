@@ -15,11 +15,14 @@
  */
 class Solution {
     public int diameterOfBinaryTree(TreeNode root) {
-        if(root == null){
+       return diameter(root);
+    }
+    public int diameter(TreeNode root){
+         if(root == null){
             return 0;
         }
-        int ld = diameterOfBinaryTree(root.left);
-        int rd = diameterOfBinaryTree(root.right);
+        int ld = diameter(root.left);
+        int rd = diameter(root.right);
         int sd = ht(root.left)+ht(root.right)+2;
         return Math.max(sd,Math.max(ld,rd));
     }
