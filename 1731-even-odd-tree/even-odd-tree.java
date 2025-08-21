@@ -14,9 +14,9 @@
  * }
  */
 class Solution {
+    List<List<Integer>> a1 = new ArrayList<>();
     public boolean isEvenOddTree(TreeNode root) {
-        List<List<Integer>> a1 = new ArrayList<>();
-        inorder(root, a1);
+        helper(root,0);
         for (int i = 0; i < a1.size(); i++) {
             List<Integer> a = a1.get(i);
             for (int j = 0; j < a.size(); j++) {
@@ -32,26 +32,11 @@ class Solution {
         }
         return true;
     }
-    public void inorder(TreeNode root , List<List<Integer>> a1 ){
-        if(root == null){
-            return;
-        }
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        while(!q.isEmpty()){
-            int n = q.size();
-            List<Integer> a = new ArrayList<>();
-            for(int i = 0 ; i < n ; i++){
-                TreeNode top = q.poll();
-                a.add(top.val);
-                if(top.left != null){
-                    q.add(top.left);
-                }
-                if(top.right != null){
-                    q.add(top.right);
-                }
-            }
-            a1.add(a);
-        }
+    public void helper(TreeNode node,int level){
+        if(node==null) return;
+        if(a1.size()==level) a1.add(new ArrayList<>());
+        a1.get(level).add(node.val);
+        helper(node.left,level+1);
+        helper(node.right,level+1);
     }
 }
