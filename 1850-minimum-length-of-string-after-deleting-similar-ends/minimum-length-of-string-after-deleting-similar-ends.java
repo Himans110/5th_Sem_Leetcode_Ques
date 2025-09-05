@@ -11,6 +11,6 @@ class Solution {
                 j--;
             }
         }
-        return Math.max(0, j - i + 1);
+        return j - i + 1;
     }
 }
