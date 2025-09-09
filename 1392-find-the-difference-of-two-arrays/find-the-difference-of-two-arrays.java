@@ -3,19 +3,23 @@ class Solution {
         List<List<Integer>> a = new ArrayList<>();
         List<Integer> l1 = new ArrayList<>();
         List<Integer> l2 = new ArrayList<>();
-        HashMap<Integer,Integer> map = new HashMap<>();
-        HashMap<Integer,Integer> map2 = new HashMap<>();
+        HashSet<Integer> set1 = new HashSet<>();
+        HashSet<Integer> set2 = new HashSet<>();
         for (int num : nums1) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            set1.add(num);
         }
         for (int num : nums2) {
-            map2.put(num, map2.getOrDefault(num, 0) + 1);
+            set2.add(num);
         }
-        for(int key : map.keySet()){
-            if(!map2.containsKey(key)) l1.add(key);
+        for (int num : set1) {
+            if (!set2.contains(num)) {
+                l1.add(num);
+            }
         }
-        for(int key : map2.keySet()){
-            if(!map.containsKey(key)) l2.add(key);
+        for (int num : set2) {
+            if (!set1.contains(num)) {
+                l2.add(num);
+            }
         }
         a.add(l1);
         a.add(l2);
