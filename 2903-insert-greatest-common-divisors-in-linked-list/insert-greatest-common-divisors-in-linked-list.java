@@ -29,14 +29,8 @@ class Solution {
         }
         return dummy.next;
     }
-    public int gcd(int a , int b){
-        int min = Math.min(a,b);
-        int gc = -1;
-        for(int i = 1 ; i <= min ; i++){
-            if(a % i == 0 && b % i == 0){
-                gc = i;
-            }
-        }
-        return gc;
+    public int gcd(int a, int b) {
+        if (b == 0) return a;
+        return gcd(b, a%b);
     }
 }
