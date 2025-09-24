@@ -9,11 +9,11 @@ class Solution {
         for(int i = 0 ; i < n ; i++ ){
             currsum += c[i];
         }
-        int minsum = currsum;
+        int maxi = total - currsum;
         for(int i = n ; i < c.length ; i++){
             currsum += c[i]-c[i-n];
-            minsum = Math.min(minsum,currsum);
+            maxi = Math.max(maxi,total - currsum);
         }
-        return total-minsum;
+        return maxi;
     }
 }
