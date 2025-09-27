@@ -7,14 +7,8 @@ class Solution {
             int min = (int) Math.pow(10, half - 1);
             int max = (int) Math.pow(10, half) - 1;
             for (int num = min; num <= max; num++) {
-                String rn = rev(num);
-                String pal = "";
-                if(L % 2 == 0){
-                    pal = String.valueOf(num)+rn;
-                }
-                else{
-                    pal = String.valueOf(num)+rn.substring(1);
-                }
+                String rn = new StringBuilder(String.valueOf(num)).reverse().toString();
+                String pal = String.valueOf(num) + (L % 2 == 0 ? rn : rn.substring(1));
                 long val = Long.parseLong(pal);
                 if (ispal(baseK(val, k))) {
                     sum += val;
@@ -42,13 +36,5 @@ class Solution {
             j--;
         }
         return true;
-    }
-    public String rev(int num) {
-        StringBuilder sb = new StringBuilder();
-        while (num > 0) {
-            sb.append(num % 10);
-            num /= 10;
-        }
-        return sb.toString();
     }
 }
