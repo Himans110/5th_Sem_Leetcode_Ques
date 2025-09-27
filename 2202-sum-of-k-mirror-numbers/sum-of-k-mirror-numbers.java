@@ -6,26 +6,20 @@ class Solution {
             int half = (L + 1) / 2;
             int min = (int) Math.pow(10, half - 1);
             int max = (int) Math.pow(10, half) - 1;
-            if (L % 2 == 0) {
-                for (int num = min; num <= max; num++) {
-                    String s = String.valueOf(num) + rev(num);
-                    long val = Long.parseLong(s);
-                    if (ispal(baseK(val, k))) {
-                        sum += val;
-                        n--;
-                        if (n == 0) return sum;
-                    }
+            for (int num = min; num <= max; num++) {
+                String rn = rev(num);
+                String pal = "";
+                if(L % 2 == 0){
+                    pal = String.valueOf(num)+rn;
                 }
-            } 
-            else {
-                for (int num = min; num <= max; num++) {
-                    String s = String.valueOf(num) + rev(num).substring(1);
-                    long val = Long.parseLong(s);
-                    if (ispal(baseK(val, k))) {
-                        sum += val;
-                        n--;
-                        if (n == 0) return sum;
-                    }
+                else{
+                    pal = String.valueOf(num)+rn.substring(1);
+                }
+                long val = Long.parseLong(pal);
+                if (ispal(baseK(val, k))) {
+                    sum += val;
+                    n--;
+                    if (n == 0) return sum;
                 }
             }
             L++;
