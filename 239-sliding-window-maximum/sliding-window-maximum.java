@@ -1,26 +1,22 @@
 class Solution {
     public int[] maxSlidingWindow(int[] a, int k) {
-       if (a == null || k <= 0) {
-			return new int[0];
-		}
-		int n = a.length;
-		int[] r = new int[n-k+1];
-		int ri = 0;
-		Deque<Integer> q = new ArrayDeque<>();
-		for (int i = 0; i < a.length; i++) {
-			// remove numbers out of range k
-			while (!q.isEmpty() && q.peek() < i - k + 1) {
-				q.poll();
-			}
-			// remove smaller numbers in k range as they are useless
-			while (!q.isEmpty() && a[q.peekLast()] < a[i]) {
-				q.pollLast();
-			}
-			q.offer(i);
-			if (i >= k - 1) {
-				r[ri++] = a[q.peek()];
-			}
-		}
-		return r;
+        int n = a.length;
+        int p[] = new int[n];
+        int s[] = new int[n];
+        int ans[] = new int[n-k+1];
+        p[0] = a[0];
+        for(int i = 1 ; i < n ; i++){
+            if(i % k == 0) p[i] = a[i];
+            else p[i] = Math.max(p[i-1],a[i]);
+        }
+        s[n-1] = a[n-1];
+        for(int i = n-2 ; i >= 0 ; i--){
+            if((i+1) % k == 0) s[i] = a[i];
+            else s[i] = Math.max(s[i+1],a[i]);
+        }
+        for(int i = 0 ; i < ans.length ; i++){
+            ans[i] = Math.max(s[i],p[i+k-1]);
+        }
+        return ans;
     }
 }
