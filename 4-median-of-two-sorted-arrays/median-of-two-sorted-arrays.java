@@ -1,24 +1,40 @@
 class Solution {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int k = 0;
-        int arr[] = new int[nums1.length + nums2.length];
-        for(int i = 0 ; i< nums1.length ; i++){
-            arr[k++] = nums1[i];
+    public double findMedianSortedArrays(int[] a, int[] b) {
+        if(a.length > b.length){
+            int tem[] = a;
+            a = b;
+            b = tem;
         }
-        for(int i = 0 ; i< nums2.length ; i++){
-            arr[k++] = nums2[i];
+        int n = a.length;
+        int m = b.length;
+        int lo = 0;
+        int hi = n;
+        int total = (n + m);
+        int hl = (total+1)/2;
+        while(lo <= hi){
+            int al = lo + (hi - lo)/2;
+            int bl = hl - al;
+            int alm1 = (al == 0)?Integer.MIN_VALUE:a[al-1];
+            int aleft = (al == n)?Integer.MAX_VALUE:a[al];
+            int blm1 = (bl == 0)?Integer.MIN_VALUE:b[bl-1];
+            int bleft = (bl == m)?Integer.MAX_VALUE:b[bl];
+            if(alm1 <= bleft && blm1 <= aleft) {
+                double ans = 0;
+                if((total & 1) == 1) {
+                    ans = Math.max(alm1, blm1)/1.0;
+                }
+                else {
+                    ans = (Math.max(alm1, blm1) + Math.min(aleft, bleft)) / 2.0;;
+                }
+                return ans;
+            }
+            else if(alm1 > bleft) {
+                hi = al - 1;
+            }
+            else {
+                lo = al + 1;
+            }
         }
-        Arrays.sort(arr);
-        if(arr.length % 2!=0){
-            int idx = arr.length / 2;
-            double d = arr[idx];
-            return d;
-        }
-        else{
-            int idx1 = (arr.length/2) -1;
-            int idx2 = arr.length/2;
-            double ans = (arr[idx1]+arr[idx2]) / 2.0;
-            return ans;
-        }
+        return 0.0;
     }
 }
