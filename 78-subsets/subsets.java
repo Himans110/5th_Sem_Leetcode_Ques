@@ -13,6 +13,6 @@ class Solution {
         fun(nums, idx+1,l,ans);
         ans.add(nums[idx]);
         fun(nums, idx+1,l,ans);
-        ans.remove(ans.get(ans.size()-1));
+        ans.remove(ans.size()-1);
     }
 }
