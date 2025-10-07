@@ -1,27 +1,28 @@
 class Solution {
-    int[] row = {1, -1, 0, 0};
-    int[] col = {0, 0, -1, 1};
-    int maxGold = 0;
     public int getMaximumGold(int[][] grid) {
+        int ans = 0;
         int n = grid.length, m = grid[0].length;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (grid[i][j] != 0) {
-                    maxGold = Math.max(maxGold, dfs(grid, i, j));
+                    ans = Math.max(ans, fun(grid, i, j));
                 }
             }
         }
-        return maxGold;
+        return ans;
     }
-    public int dfs(int grid[][], int x , int y){
-        if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] == 0) return 0;
-        int curr = grid[x][y];
-        grid[x][y] = 0;
-        int max = curr;
-        for(int i = 0 ; i < 4 ; i++){
-            max = Math.max(max, curr+dfs(grid, x+row[i], y+col[i]));
+    public int fun(int[][] grid,int i,int j){
+        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j]==0){
+            return 0;
         }
-        grid[x][y] = curr;
-        return max;
+        int v=grid[i][j];
+        grid[i][j]=0;
+        int ans=0;
+        ans=Math.max(ans,fun(grid,i+1,j));
+        ans=Math.max(ans,fun(grid,i,j+1));
+        ans=Math.max(ans,fun(grid,i-1,j));
+        ans=Math.max(ans,fun(grid,i,j-1));
+        grid[i][j]=v;
+        return ans+v;
     }
 }
