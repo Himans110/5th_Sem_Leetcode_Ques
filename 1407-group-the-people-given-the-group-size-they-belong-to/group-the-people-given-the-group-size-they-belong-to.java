@@ -1,19 +1,16 @@
 class Solution {
     public List<List<Integer>> groupThePeople(int[] gs) {
         List<List<Integer>> ans = new ArrayList<>();
-        TreeSet<Integer> h = new TreeSet<>();
-        for(int i : gs){
-            h.add(i);
-        }
         HashMap<Integer,List<Integer>> map = new HashMap<>();
-        for(int i : h){
-            map.put(i,new ArrayList<>());
-        }
         for(int i = 0 ; i < gs.length ; i++){
             int key = gs[i];
-            List<Integer> temp = map.get(key);
-            temp.add(i);
-            map.put(key,temp);
+             if (!map.containsKey(key)) {
+                List<Integer> temp = new ArrayList<>();
+                temp.add(i);
+                map.put(key, temp);
+            } else {
+                map.get(key).add(i);
+            }
         }
         for(int i : map.keySet()){
             if(i == map.get(i).size()) ans.add(map.get(i));
