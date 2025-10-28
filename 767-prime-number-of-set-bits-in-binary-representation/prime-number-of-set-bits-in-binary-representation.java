@@ -2,17 +2,8 @@ class Solution {
     public int countPrimeSetBits(int left, int right) {
         int count = 0;
         for(int i = left ; i<= right ; i++){
-            int set = setbit(i);
-            if(is_prime(set)) count++;
-        }
-        return count;
-    }
-    public int setbit(int n){
-        int count = 0;
-        while(n > 0){
-            int rem = n % 2;
-            if(rem == 1) count++;
-            n = n / 2;
+            int bits = Integer.bitCount(i);
+            if(is_prime(bits)) count++;
         }
         return count;
     }
