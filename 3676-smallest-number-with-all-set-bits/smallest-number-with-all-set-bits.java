@@ -1,16 +1,16 @@
 class Solution {
     public int smallestNumber(int n) {
-        for(int i = n ; i<=100000 ; i++){
-            if(set(i)) return i;
-        }
-        return -1;
+        int num = set(n);
+        int ans = (int)Math.pow(2,num)-1;
+        return ans;
     }
-    public boolean set(int n){
+    public int set(int n){
+        int count = 0;
         while(n>0){
             int rem = n % 2;
-            if(rem == 0) return false;
+            count++;
             n /= 2;
         }
-        return true;
+        return count;
     }
 }
