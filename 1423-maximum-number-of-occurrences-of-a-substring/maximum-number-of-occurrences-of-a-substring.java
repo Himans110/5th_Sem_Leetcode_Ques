@@ -1,11 +1,9 @@
 class Solution {
     public int maxFreq(String s, int maxl, int min, int max) {
         HashMap<String , Integer> map = new HashMap<>();
-        for (int i = min; i <= max; i++) {
-            for (int j = 0; j <= s.length() - i; j++) {
-                String m = s.substring(j, j + i);
-                if (is_valid(m, maxl)) map.put(m, map.getOrDefault(m, 0)+1);
-            }
+        for (int i = 0; i <= s.length() - min; i++) {
+            String m = s.substring(i, i + min);
+            if (is_valid(m, maxl)) map.put(m, map.getOrDefault(m, 0)+1);
         }
         int maxf = 0;
         for(String i : map.keySet()){
