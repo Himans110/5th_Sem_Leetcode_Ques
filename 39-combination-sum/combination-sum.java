@@ -10,10 +10,10 @@ class Solution {
             ans.add(new ArrayList<>(l));
             return;
         }
-        for(int i = idx ; i < arr.length ; i++){
+        for(int i = idx ; i< arr.length ; i++){
             if(arr[i] <= target){
                 l.add(arr[i]);
-                fun(arr, target-arr[i], ans, l, i);
+                fun(arr , target-arr[i] , ans, l , i);
                 l.remove(l.size()-1);
             }
         }
