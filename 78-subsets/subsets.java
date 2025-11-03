@@ -10,9 +10,9 @@ class Solution {
             l.add(new ArrayList<>(ans));
             return;
         }
-        fun(nums, idx+1,l,ans);
+        fun(nums, idx+1, l , ans);
         ans.add(nums[idx]);
-        fun(nums, idx+1,l,ans);
+        fun(nums, idx+1 , l , ans);
         ans.remove(ans.size()-1);
     }
 }
