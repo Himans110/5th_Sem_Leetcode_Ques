@@ -5,8 +5,7 @@ class Solution {
        for(int i = 1 ; i < lis.length ; i++){
         for(int j = i-1 ; j>= 0 ; j--){
             if(arr[i] > arr[j]){
-                int l = lis[j];
-                lis[i] = Math.max(lis[i],1+l);
+                lis[i] = Math.max(lis[i],1+lis[j]);
             }
         }
        }
