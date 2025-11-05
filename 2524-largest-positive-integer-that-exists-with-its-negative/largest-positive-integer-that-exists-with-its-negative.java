@@ -4,10 +4,9 @@ class Solution {
         int i = 0, j = arr.length - 1;
         
         while (i < j) {
+            if(arr[i] > 0) break;
             if (Math.abs(arr[i]) == arr[j]) {
-                if (arr[j] == -arr[i]) return arr[j];
-                i++;
-                j--;
+                return arr[j];
             } 
             else if (Math.abs(arr[i]) > arr[j]) {
                 i++;
