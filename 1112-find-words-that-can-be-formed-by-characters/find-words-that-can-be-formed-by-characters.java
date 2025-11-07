@@ -1,25 +1,27 @@
 class Solution {
-    public int countCharacters(String[] words, String c) {
-        HashMap<Character,Integer> h = new HashMap<>();
-        for (char i : c.toCharArray()) {
-            h.put(i, h.getOrDefault(i, 0) + 1);
+    public int countCharacters(String[] words, String chars) {
+       int[] charFreq = new int[26];
+        for (char c : chars.toCharArray()) {
+            charFreq[c - 'a']++;
         }
-        int ans = 0;
-        for (String j : words) {
-            HashMap<Character, Integer> h1 = new HashMap<>();
-            for (char i : j.toCharArray()) {
-                h1.put(i, h1.getOrDefault(i, 0) + 1);
-            }
-            boolean flag = true;
-            for (char m : h1.keySet()) {
-                if (!h.containsKey(m) || h1.get(m) > h.get(m)) {
-                    flag = false;
+        int totalLength = 0;
+
+        for (String word : words) {
+            int[] temp = charFreq.clone();
+            boolean canForm = true;
+
+            for (char c : word.toCharArray()) {
+                if (--temp[c - 'a'] < 0) {
+                    canForm = false;
                     break;
                 }
             }
-            if (flag) ans += j.length();
+
+            if (canForm) {
+                totalLength += word.length();
+            }
         }
-        
-        return ans;
+
+        return totalLength;
     }
 }
