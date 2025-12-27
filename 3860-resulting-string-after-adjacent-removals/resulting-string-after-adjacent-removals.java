@@ -1,22 +1,20 @@
 class Solution {
     public String resultingString(String s) {
-        Stack<Character> st = new Stack<>();
-        for (char c : s.toCharArray()) {
-            if (!st.isEmpty() && check(st.peek(), c)) {
-                st.pop();   
-            } else {
-                st.push(c);
+        StringBuilder sb= new StringBuilder("");
+        for (char c:s.toCharArray()){
+            if (sb.length()==0) {
+                sb.append(c);
+            }
+            else if ((c=='z'&&sb.charAt(sb.length()-1)=='a')||(c=='a'&&sb.charAt(sb.length()-1)=='z')) {
+                sb.deleteCharAt(sb.length()-1);
+            }
+            else if (c==sb.charAt(sb.length()-1)+1||c==sb.charAt(sb.length()-1)-1) {
+                sb.deleteCharAt(sb.length()-1);
+            }
+            else {
+                sb.append(c);
             }
         }
-        StringBuilder ans = new StringBuilder();
-        while (!st.isEmpty()) {
-            ans.append(st.pop());
-        }
-        return ans.reverse().toString();
-    }
-
-    private boolean check(char a, char b) {
-        if (Math.abs(a - b) == 1) return true;
-        return (a == 'a' && b == 'z') || (a == 'z' && b == 'a');
+   return sb.toString();
     }
 }
