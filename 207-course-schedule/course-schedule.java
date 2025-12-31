@@ -1,0 +1,35 @@
+class Solution {
+    public boolean canFinish(int n, int[][] arr) {
+        HashMap<Integer,List<Integer>> map = new HashMap<>();
+        for(int i = 0; i < n; i++){
+            map.put(i, new ArrayList<>());
+        }
+        for(int a[] : arr){
+            map.get(a[0]).add(a[1]);
+        }
+        int in[] = new int[map.size()];
+        for(int v1 : map.keySet()){
+            for(int v2 : map.get(v1)){
+                in[v2]++;
+            }
+        }
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < in.length; i++) {
+            if (in[i] == 0) {
+                q.add(i);
+            }
+        }
+        int count = 0;
+        while (!q.isEmpty()){
+            int r = q.poll();
+            count++;
+            for (int nbrs: map.get(r)){
+                in[nbrs]--;
+                if (in[nbrs]==0){
+                    q.add(nbrs);
+                }
+            }
+        }
+        return count==n;
+    }
+}
