@@ -5,7 +5,7 @@ class Solution {
             map.put(i, new ArrayList<>());
         }
         for(int a[] : arr){
-            map.get(a[0]).add(a[1]);
+            map.get(a[1]).add(a[0]);
         }
         int in[] = new int[map.size()];
         for(int v1 : map.keySet()){
