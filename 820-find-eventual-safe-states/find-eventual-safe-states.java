@@ -1,29 +1,26 @@
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
         int n = graph.length;
-        int[] out = new int[n];
-        List<List<Integer>> rev = new ArrayList<>();
-        for (int i = 0; i < n; i++) rev.add(new ArrayList<>());
-        for (int i = 0; i < n; i++) {
-            out[i] = graph[i].length;
-            for (int v : graph[i]) {
-                rev.get(v).add(i);
-            }
-        }
-        Queue<Integer> q = new LinkedList<>();
+        int[] state = new int[n]; // 0 = unvisited, 1 = visiting, 2 = safe
         List<Integer> ans = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            if (out[i] == 0) q.add(i);
-        }
-        while (!q.isEmpty()) {
-            int u = q.poll();
-            ans.add(u);
-            for (int p : rev.get(u)) {
-                out[p]--;
-                if (out[p] == 0) q.add(p);
+            if (dfs(i, graph, state)) {
+                ans.add(i);
             }
         }
-        Collections.sort(ans);
         return ans;
+    }
+    private boolean dfs(int node, int[][] graph, int[] state) {
+        if (state[node] != 0) {
+            return state[node] == 2;
+        }
+        state[node] = 1; // add visited 
+        for (int nbr : graph[node]) {
+            if (!dfs(nbr, graph, state)) {
+                return false;
+            }
+        }
+        state[node] = 2;
+        return true;
     }
 }
