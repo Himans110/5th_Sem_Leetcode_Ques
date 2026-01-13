@@ -1,13 +1,15 @@
 class Solution {
     public int maxProfit(int[] arr) {
-        int buy = arr[0];
-        int profit = 0;
+        int ans = 0;
+        int prev = arr[0];
         for(int i = 1 ; i < arr.length ; i++){
-            if(arr[i] > buy){
-                profit = Math.max(profit, arr[i]-buy);
+            if(prev < arr[i]){
+                ans = Math.max(ans, arr[i]-prev);
             }
-            buy = Math.min(buy , arr[i]);
+            else{
+                prev = arr[i];
+            }
         }
-        return profit;
+        return ans;
     }
 }
