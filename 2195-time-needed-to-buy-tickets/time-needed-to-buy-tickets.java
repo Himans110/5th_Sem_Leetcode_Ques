@@ -12,10 +12,10 @@ class Solution {
         while(!q.isEmpty()){
             int [] r = q.poll();
             int put = r[0]-1;
-            if(put == 0 && r[1] == k) break;
             ans++;
+            if(put == 0 && r[1] == k) break;
             if(put != 0) q.add(new int[]{put , r[1]});
         }
-        return ans+1;
+        return ans;
     }
 }
