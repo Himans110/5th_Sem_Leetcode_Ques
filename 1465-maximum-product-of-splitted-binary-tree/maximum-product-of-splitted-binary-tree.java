@@ -1,25 +1,43 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    long total = 0;
-    long maxi = 0;
+    long total;
+    long max = Long.MIN_VALUE;
     public int maxProduct(TreeNode root) {
-        total(root); 
-        subtree(root);
-        return (int)(maxi % 1000000007);
+        total = sum(root);
+        long ans = dfs(root);
+        return (int) (max%1000000007);
     }
-    public long total(TreeNode root){
-        if(root == null) return 0;
-        long a1 = total(root.left);
-        long b1 = total(root.right);
-        long sum = root.val + a1 + b1;
-        total = sum;
-        return sum;
+    public long dfs(TreeNode root){
+        if(root == null) {
+            return 0;
+        }
+        long left = dfs(root.left);
+        long right = dfs(root.right);
+        long curr = left+right+root.val;
+        long ans = curr*(total-curr);
+        max = Math.max(max, ans);
+        return curr;
     }
-    public long subtree(TreeNode root){
-        if(root == null) return 0;
-        long a = subtree(root.left);
-        long b = subtree(root.right);
-        long sub = root.val + a + b;
-        maxi = Math.max(maxi, sub * (total - sub));
-        return sub;
+    public long sum(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        long left = sum(root.left);
+        long right = sum(root.right);
+        return left+right+root.val;
     }
 }
