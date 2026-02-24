@@ -1,23 +1,26 @@
 class Solution {
-    public boolean validPath(int n, int[][] edges, int src, int des) {
-        HashMap<Integer,List<Integer>> map = new HashMap<>();
+    public boolean validPath(int n, int[][] edges, int s, int d) {
+        List<List<Integer>> l = new ArrayList<>();
         for(int i = 0; i < n; i++){
-            map.put(i,new ArrayList<>());
+            l.add(new ArrayList<>());
         }
-        for(int []a : edges){
-            map.get(a[0]).add(a[1]);
-            map.get(a[1]).add(a[0]);
+        for(int a[] : edges){
+            int u = a[0],v = a[1];
+            l.get(u).add(v);
+            l.get(v).add(u);
         }
         Queue<Integer> q = new LinkedList<>();
-        q.add(src);
         HashSet<Integer> visited = new HashSet<>();
+        q.add(s);
         while(!q.isEmpty()){
             int r = q.poll();
             if(visited.contains(r)) continue;
             visited.add(r);
-            if(r == des) return true;
-            for(int nbrs : map.get(r)){
-                if(!visited.contains(nbrs)) q.add(nbrs);
+            if(r == d) return true;
+            for(int nbr : l.get(r)){
+                if(!visited.contains(nbr)){
+                    q.add(nbr);
+                }
             }
         }
         return false;
