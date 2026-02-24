@@ -1,17 +1,17 @@
 class Solution {
-    public int edgeScore(int[] edges) {
-        long[] score = new long[edges.length];
-        for (int i = 0; i < edges.length; i++) {
-            score[edges[i]] += i;
+    public int edgeScore(int[] arr) {
+        long[] score = new long[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            score[arr[i]] += i;
         }
         long max = -1;
-        int ans = 0;
+        int result = 0;
         for (int i = 0; i < score.length; i++) {
             if (score[i] > max) {
                 max = score[i];
-                ans = i;
+                result = i;
             }
         }
-        return ans;
+        return result;
     }
 }
