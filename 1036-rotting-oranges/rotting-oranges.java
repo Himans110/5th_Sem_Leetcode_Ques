@@ -2,33 +2,33 @@ class Solution {
     public int orangesRotting(int[][] grid) {
         int n = grid.length;
         int m = grid[0].length;
-        int ans = 0;
-        int fresh = 0;
         Queue<int[]> q = new LinkedList<>();
+        int safe = 0;
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
-                if(grid[i][j] == 2) q.offer(new int[]{i , j});
-                if(grid[i][j] == 1) fresh++;
+                if(grid[i][j] == 2) q.add(new int[]{i,j});
+                else if(grid[i][j] == 1) safe++;
             }
         }
-        int [][]dir = {{1,0},{0,1},{0,-1},{-1,0}};
-        while(!q.isEmpty() && fresh > 0){
-            int s = q.size();
-            for(int k = 0; k < s; k++){
-                int cur[] = q.poll();
-                for(int []d : dir){
-                    int ni = cur[0]+d[0];
-                    int nj = cur[1]+d[1];
-                    if(ni >= 0 && nj >= 0 && ni < n && nj < m && grid[ni][nj] == 1){
-                        fresh--;
-                        grid[ni][nj] = 2;
-                        q.offer(new int[]{ni, nj});
+        int time = 0;
+        int [][]dir = {{0,-1},{0,1},{1,0},{-1,0}};
+        while(!q.isEmpty() && safe > 0){
+            int p = q.size();
+            for(int i = 0; i < p; i++){
+                int cur[]= q.poll();
+                for(int d = 0; d < dir.length; d++){
+                    int ni = cur[0]+dir[d][0];
+                    int nc = cur[1]+dir[d][1];
+                    if(ni>=0 && nc>=0 && ni<n && nc<m && grid[ni][nc]==1){
+                        grid[ni][nc] = 2;
+                        safe--;
+                        q.add(new int[]{ni,nc});
                     }
                 }
             }
-            ans++;
+            time++;
         }
-        if(fresh == 0) return ans;
-        return -1;
+
+        return safe == 0 ? time : -1;
     }
 }
