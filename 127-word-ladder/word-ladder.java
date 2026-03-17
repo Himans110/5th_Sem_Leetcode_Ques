@@ -1,42 +1,38 @@
 class Solution {
     class Pair{
-        String word;
+        String s;
         int step;
-        public Pair(String word, int step){
-            this.word = word;
+        public Pair(String s, int step){
+            this.s = s;
             this.step = step;
         }
     }
     public int ladderLength(String bw, String ew, List<String> arr) {
-        HashSet<String> dict = new HashSet<>(arr);
-        if(!dict.contains(ew)) return 0;
+        HashSet<String> h = new HashSet<>(arr);
+        if(!h.contains(ew)) return 0;
         int ans = Integer.MAX_VALUE;
         Queue<Pair> q = new LinkedList<>();
-        HashSet<String>visited = new HashSet<>();
-        q.add(new Pair(bw,1));
+        HashSet<String> visited = new HashSet<>();
+        q.add(new Pair(bw, 1));
         while(!q.isEmpty()){
-            Pair rm = q.poll();
-            if(visited.contains(rm.word)){
+            Pair r = q.poll();
+            if(visited.contains(r.s)) continue;
+            visited.add(r.s);
+            if(r.s.equals(ew)){
+                ans  = Math.min(ans, r.step);
                 continue;
             }
-            visited.add(rm.word);
-            if(rm.word.equals(ew)){
-                ans = Math.min(ans,rm.step);
-                continue;
-            }
-            // now check all comb
-            for(int i=0;i<rm.word.length();i++){    
-                for(int j=0;j<26;j++){
-                    char ch = (char)('a'+j);
-                    if(ch==rm.word.charAt(i)) continue;
-                    String news = rm.word.substring(0,i)+ch+rm.word.substring(i+1,rm.word.length());
-                    if(dict.contains(news) && !visited.contains(news)){
-                        q.add(new Pair(news,rm.step+1));
+            for(int i = 0; i < r.s.length(); i++){
+                for(int j = 0; j < 26; j++){
+                    char ch = (char) (j+'a');
+                    if(ch == r.s.charAt(i)) continue;
+                    String news = r.s.substring(0,i)+ch+r.s.substring(i+1, r.s.length());
+                    if(h.contains(news) && !visited.contains(news)){
+                        q.add(new Pair(news, r.step+1));
                     }
-                        
                 }
             }
         }
-        return ans==Integer.MAX_VALUE ? 0 : ans;
+        return ans == Integer.MAX_VALUE? 0 : ans;
     }
 }
