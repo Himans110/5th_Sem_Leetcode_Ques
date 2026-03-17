@@ -1,15 +1,16 @@
 class Solution {
     public int[] findOrder(int n, int[][] arr) {
-        HashMap<Integer,List<Integer>> map = new HashMap<>();
-        for(int i = 0; i < n; i++){
-            map.put(i, new ArrayList<>());
+        List<List<Integer>> graph = new ArrayList<>();
+        for(int i = 0; i < n ; i++){
+            graph.add(new ArrayList<>());
         }
         for(int a[] : arr){
-            map.get(a[1]).add(a[0]);
+            int u = a[0], v = a[1];
+            graph.get(v).add(u);
         }
-        int in[] = new int[map.size()];
-        for(int v1 : map.keySet()){
-            for(int v2 : map.get(v1)){
+        int in[] = new int[n];
+        for(List<Integer> l : graph){
+            for(int v2 : l){
                 in[v2]++;
             }
         }
@@ -24,7 +25,7 @@ class Solution {
         while (!q.isEmpty()){
             int r = q.poll();
             ans[i++] = r;
-            for (int nbrs: map.get(r)){
+            for (int nbrs: graph.get(r)){
                 in[nbrs]--;
                 if (in[nbrs]==0){
                     q.add(nbrs);
