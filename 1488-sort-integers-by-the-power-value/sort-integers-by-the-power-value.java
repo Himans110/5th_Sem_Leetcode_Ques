@@ -5,9 +5,7 @@ class Solution {
             return a[1]-b[1];
         });
          for (int i = lo; i <= hi; i++) {
-            int dp[] = new int[10000];
-            Arrays.fill(dp, -1);
-            pq.offer(new int[]{i, steps(i, dp)});
+            pq.offer(new int[]{i, steps(i)});
         }
         while(!pq.isEmpty()){
             int[] r = pq.poll();
@@ -18,16 +16,12 @@ class Solution {
         }
         return -1;
     }
-    public int steps(int n, int dp[]){
-        if (n == 1) return 0;
-        if (n < dp.length && dp[n] != -1) return dp[n];
-        int res;
-        if (n % 2 == 0) {
-            res = 1 + steps(n / 2, dp);
-        } else {
-            res = 1 + steps(3 * n + 1, dp);
+    public int steps(int num){
+        if (num == 1) {
+            return 0;
         }
-        if (n < dp.length) dp[n] = res;
-        return res;
+        int next = (num % 2 == 0) ? num / 2 : num*3+1;
+        int count = steps(next) + 1;
+        return count;
     }
 }
