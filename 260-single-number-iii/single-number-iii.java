@@ -1,17 +1,16 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
-        int xor = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
         for(int i : nums){
-            xor ^= i;
+            map.put(i , map.getOrDefault(i , 0)+1);
         }
-        int mask = (xor&(-1 * xor)); // piche se pahla 1 kah hai;
-        int a = 0;
-        for(int i : nums){
-            if((mask & i) != 0){
-                a ^= i;
+        int ans[] = new int[2];
+        int j = 0;
+        for(int k : map.keySet()){
+            if(map.get(k) == 1){
+                ans[j++] = k;
             }
         }
-        int b = xor ^ a;
-        return new int[] {a,b};
+        return ans;
     }
 }
